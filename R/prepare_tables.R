@@ -189,13 +189,13 @@ prepare_cohort_boundaries <- function(x) {
   x %>%
     summarise(
       first_visit_date = min(visit_start_date, na.rm = TRUE),
-      first_visit_dttm = min(visit_start_datetime, na.rm = TRUE),
+      as.POSIXct(first_visit_dttm = min(visit_start_datetime, na.rm = TRUE)),
       last_visit_date = max(visit_start_date, na.rm = TRUE),
-      last_visit_dttm = max(visit_start_date, na.rm = TRUE),
+      as.POSIXct(last_visit_dttm = max(visit_start_date, na.rm = TRUE)),
       first_dc_date = min(visit_end_date, na.rm = TRUE),
-      first_dc_dttm = min(visit_end_datetime, na.rm = TRUE),
+      as.POSIXct(first_dc_dttm = min(visit_end_datetime, na.rm = TRUE)),
       last_dc_date = max(visit_end_date, na.rm = TRUE),
-      last_dc_dttm = max(visit_end_datetime, na.rm = TRUE)
+      as.POSIXct(last_dc_dttm = max(visit_end_datetime, na.rm = TRUE))
     ) %>%
     tidyr::pivot_longer(everything(), names_to = "observation", values_to = "time") %>%
     mutate(
